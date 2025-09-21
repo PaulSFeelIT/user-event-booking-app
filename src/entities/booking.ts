@@ -8,9 +8,9 @@ export class Booking {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => User, user => user.bookings)
+  @ManyToOne(() => User, (user) => user.bookings)
   user!: User;
 
-  @ManyToOne(() => Event, event => event.bookings)
+  @ManyToOne(() => Event, (event) => event.bookings)
   event!: Event;
 }

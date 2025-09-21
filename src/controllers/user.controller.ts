@@ -1,7 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { UserService } from '../services/user.service';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { UserResponseDto } from '../dto/user-response.dto';
 import { DuplicateEmailException } from '../exceptions/DuplicateEmailException';
 import { UserNotFoundException } from '../exceptions/UserNotFoundException';
 import { ValidationException } from '../exceptions/ValidationException';
@@ -21,7 +20,7 @@ export class UserController {
   }
 
   async createUser(req: Request, res: Response) {
-    const dto: CreateUserDto = req.body;
+    const dto: CreateUserDto = req.body as CreateUserDto;
 
     try {
       const user = await this.userService.create(dto.name, dto.email);
@@ -54,7 +53,7 @@ export class UserController {
   }
 
   async getUserByEmail(req: Request, res: Response) {
-    let email = req.query.email as string;
+    const email = req.query.email as string;
 
     try {
       const user = await this.userService.getByEmail(email);

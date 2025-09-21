@@ -1,7 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { EventService } from '../services/event.service';
 import { CreateEventDto } from '../dto/create-event.dto';
-import { EventResponseDto } from '../dto/event-response.dto';
 import { EventNotFoundException } from '../exceptions/EventNotFoundException';
 import { ValidationException } from '../exceptions/ValidationException';
 
@@ -20,10 +19,14 @@ export class EventController {
   }
 
   async createEvent(req: Request, res: Response) {
-    const dto: CreateEventDto = req.body;
+    const dto: CreateEventDto = req.body as CreateEventDto;
 
     try {
-      const event = await this.eventService.create(dto.title, dto.date, dto.capacity);
+      const event = await this.eventService.create(
+        dto.title,
+        dto.date,
+        dto.capacity
+      );
 
       res.status(201).json(event);
     } catch (err) {
@@ -57,7 +60,7 @@ export class EventController {
     try {
       const events = await this.eventService.getAll(page, limit);
       res.json(events);
-    } catch (err) {
+    } catch {
       res.status(500).json({ message: 'Internal server error' });
     }
   }

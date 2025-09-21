@@ -5,7 +5,6 @@ import { BookingRepository } from '../repositories/booking.repository';
 import { EventNotFoundException } from '../exceptions/EventNotFoundException';
 import { InsufficientCapacityException } from '../exceptions/InsufficientCapacityException';
 import { DuplicateBookingException } from '../exceptions/DuplicateBookingException';
-import { UserNotFoundException } from '../exceptions/UserNotFoundException';
 import { User } from '../entities/user';
 import { Event } from '../entities/event';
 
@@ -24,8 +23,20 @@ describe('BookingService', () => {
   });
 
   it('should create a booking successfully', async () => {
-    const user: User = { id: 'u1', name: 'u1', email: 'test@test.com', bookings: [] };
-    const event: Event = { id: 'e1', title: 'Event 1', date: new Date('2000-01-01'), capacity: 100, bookedSeats: 0, bookings: [] };
+    const user: User = {
+      id: 'u1',
+      name: 'u1',
+      email: 'test@test.com',
+      bookings: [],
+    };
+    const event: Event = {
+      id: 'e1',
+      title: 'Event 1',
+      date: new Date('2000-01-01'),
+      capacity: 100,
+      bookedSeats: 0,
+      bookings: [],
+    };
 
     userRepo.findById.mockResolvedValue(user);
     eventRepo.findById.mockResolvedValue(event);
@@ -40,27 +51,61 @@ describe('BookingService', () => {
 
   it('should throw EventNotFoundException if event not found', async () => {
     eventRepo.findById.mockResolvedValue(null);
-    await expect(bookingService.create('e1', 'u1')).rejects.toThrow(EventNotFoundException);
+    await expect(bookingService.create('e1', 'u1')).rejects.toThrow(
+      EventNotFoundException
+    );
   });
 
   it('should throw InsufficientCapacityException if event full', async () => {
-    const user: User = { id: 'u1', name: 'u1', email: 'test@test.com', bookings: [] };
-    const event: Event = { id: 'e1', title: 'Event 1', date: new Date('2000-01-01'), capacity: 1, bookedSeats: 1, bookings: [] };
+    const user: User = {
+      id: 'u1',
+      name: 'u1',
+      email: 'test@test.com',
+      bookings: [],
+    };
+    const event: Event = {
+      id: 'e1',
+      title: 'Event 1',
+      date: new Date('2000-01-01'),
+      capacity: 1,
+      bookedSeats: 1,
+      bookings: [],
+    };
 
     userRepo.findById.mockResolvedValue(user);
     eventRepo.findById.mockResolvedValue(event);
 
-    await expect(bookingService.create('e1', 'u1')).rejects.toThrow(InsufficientCapacityException);
+    await expect(bookingService.create('e1', 'u1')).rejects.toThrow(
+      InsufficientCapacityException
+    );
   });
 
   it('should throw DuplicateBookingException if user already booked', async () => {
-    const user: User = { id: 'u1', name: 'u1', email: 'test@test.com', bookings: [] };
-    const event: Event = { id: 'e1', title: 'Event 1', date: new Date('2000-01-01'), capacity: 10, bookedSeats: 0, bookings: [] };
+    const user: User = {
+      id: 'u1',
+      name: 'u1',
+      email: 'test@test.com',
+      bookings: [],
+    };
+    const event: Event = {
+      id: 'e1',
+      title: 'Event 1',
+      date: new Date('2000-01-01'),
+      capacity: 10,
+      bookedSeats: 0,
+      bookings: [],
+    };
 
     userRepo.findById.mockResolvedValue(user);
     eventRepo.findById.mockResolvedValue(event);
-    bookingRepo.findByUserAndEvent.mockResolvedValue({ id: 'b1', user: user, event: event });
+    bookingRepo.findByUserAndEvent.mockResolvedValue({
+      id: 'b1',
+      user: user,
+      event: event,
+    });
 
-    await expect(bookingService.create('e1', 'u1')).rejects.toThrow(DuplicateBookingException);
+    await expect(bookingService.create('e1', 'u1')).rejects.toThrow(
+      DuplicateBookingException
+    );
   });
 });

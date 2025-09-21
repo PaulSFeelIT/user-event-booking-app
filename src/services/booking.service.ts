@@ -12,8 +12,8 @@ export class BookingService {
   constructor(
     private userRepo: UserRepository,
     private eventRepo: EventRepository,
-    private bookingRepo: BookingRepository) {
-  }
+    private bookingRepo: BookingRepository
+  ) {}
 
   async create(eventId: string, userId: string): Promise<BookingResponseDto> {
     const event = await this.eventRepo.findById(eventId);

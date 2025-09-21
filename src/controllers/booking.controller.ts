@@ -1,7 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { BookingService } from '../services/booking.service';
 import { CreateBookingDto } from '../dto/create-booking.dto';
-import { BookingResponseDto } from '../dto/booking-response.dto';
 import { EventNotFoundException } from '../exceptions/EventNotFoundException';
 import { UserNotFoundException } from '../exceptions/UserNotFoundException';
 import { InsufficientCapacityException } from '../exceptions/InsufficientCapacityException';
@@ -21,7 +20,7 @@ export class BookingController {
 
   async bookSeat(req: Request, res: Response) {
     const { eventId } = req.params;
-    const dto: CreateBookingDto = req.body;
+    const dto: CreateBookingDto = req.body as CreateBookingDto;
 
     try {
       const booking = await this.bookingService.create(eventId, dto.userId);

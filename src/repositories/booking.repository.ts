@@ -17,7 +17,10 @@ export class BookingRepository {
     return this.repo.save(booking);
   }
 
-  async findByUserAndEvent(userId: string, eventId: string): Promise<Booking | null> {
+  async findByUserAndEvent(
+    userId: string,
+    eventId: string
+  ): Promise<Booking | null> {
     return this.repo.findOne({
       where: { user: { id: userId }, event: { id: eventId } },
     });

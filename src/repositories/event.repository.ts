@@ -25,18 +25,23 @@ export class EventRepository {
   async findAll(page = 1, limit = 10): Promise<Event[]> {
     const skip = (page - 1) * limit;
     return this.repo.find({
-        skip,
-        take: limit,
-        relations: ['bookings'],
-        order: { date: 'ASC' },
+      skip,
+      take: limit,
+      relations: ['bookings'],
+      order: { date: 'ASC' },
     });
   }
 
-  async updateBookedSeats(eventId: string, bookedSeats: number): Promise<Event> {
+  async updateBookedSeats(
+    eventId: string,
+    bookedSeats: number
+  ): Promise<Event> {
     await this.repo.update(eventId, { bookedSeats });
     const updated = await this.findById(eventId);
     if (!updated) {
-      throw new Error(`Event with ID ${eventId} not found while updating booked seats`);
+      throw new Error(
+        `Event with ID ${eventId} not found while updating booked seats`
+      );
     }
     return updated;
   }

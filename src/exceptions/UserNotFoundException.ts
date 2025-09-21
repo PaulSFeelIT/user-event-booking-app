@@ -1,4 +1,4 @@
-import { BaseException } from "./BaseException";
+import { BaseException } from './BaseException';
 
 export class UserNotFoundException extends BaseException {
   constructor(identifier: string) {

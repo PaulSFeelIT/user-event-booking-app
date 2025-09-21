@@ -1,4 +1,4 @@
-import { BaseException } from "./BaseException";
+import { BaseException } from './BaseException';
 
 export class DuplicateEmailException extends BaseException {
   constructor(email: string) {

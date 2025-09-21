@@ -1,6 +1,6 @@
-import { User } from "../entities/user";
+import { User } from '../entities/user';
 import { v4 as uuid } from 'uuid';
-import { ValidationException } from "../exceptions/ValidationException";
+import { ValidationException } from '../exceptions/ValidationException';
 
 export class UserFactory {
   private static EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

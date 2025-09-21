@@ -13,6 +13,7 @@ import { BookingController } from './controllers/booking.controller';
 
 async function bootstrap() {
   dotenv.config();
+  // tslint:disable-next-line
   await Database.getInstance().init();
 
   const userRepo = new UserRepository();

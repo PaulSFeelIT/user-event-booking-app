@@ -7,8 +7,7 @@ import { UserNotFoundException } from '../exceptions/UserNotFoundException';
 import { EntityToDtoMapper } from '../util/mapper';
 
 export class UserService {
-  constructor(private userRepo: UserRepository) {
-  }
+  constructor(private userRepo: UserRepository) {}
 
   async create(name: string, email: string): Promise<UserResponseDto> {
     const existing: User | null = await this.userRepo.findByEmail(email);

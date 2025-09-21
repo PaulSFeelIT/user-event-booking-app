@@ -12,6 +12,6 @@ export class User {
   @Column({ unique: true })
   email!: string;
 
-  @OneToMany(() => Booking, booking => booking.user)
+  @OneToMany(() => Booking, (booking) => booking.user)
   bookings!: Booking[];
 }

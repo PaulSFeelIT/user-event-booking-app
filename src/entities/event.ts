@@ -18,6 +18,6 @@ export class Event {
   @Column()
   bookedSeats: number = 0;
 
-  @OneToMany(() => Booking, booking => booking.event)
+  @OneToMany(() => Booking, (booking) => booking.event)
   bookings!: Booking[];
 }
